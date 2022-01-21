@@ -1,11 +1,17 @@
-package boardgame;
+package chess.pieces;
 
+import boardgame.Board;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
 
 public class Rook extends ChessPiece {
-    public Rook(Board board, Color color, int moveCount, ChessPosition chessPosition) {
-        super(board, color, moveCount, chessPosition);
+    public Rook(Board board, Color color) {
+        super(board, color);
+    }
+
+    @Override
+    public String toString(){
+        return "R";
     }
 }
