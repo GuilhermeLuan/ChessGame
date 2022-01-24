@@ -24,7 +24,7 @@ public class ChessPosition {
     }
 
     //Conveter ChessPosition to positon
-    protected Position toPosition(){
+    Position toPosition(){
         return new Position(8 - row, column - 'a');
     }
     //Converte Posotion to ChessPosition
