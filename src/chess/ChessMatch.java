@@ -38,11 +38,12 @@ public class ChessMatch {
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition){
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
-
         validateSourcePosition(source);
+        validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
         return (ChessPiece) capturedPiece;
     }
+
 
     private Piece makeMove(Position source, Position target) {
         Piece p = board.removePiece(source);
@@ -57,6 +58,16 @@ public class ChessMatch {
         }
         if(!board.piece(position).isThereAnyPossibleMove()){
             throw new ChessException("There is no possible move for the chosen piece");
+        }
+    }
+    //Validate the target postion
+    private void validateTargetPosition(Position source, Position target) {
+        /*
+        For validate source position regarding target position,
+        I have to test if the target position is the possible move of source position
+         */
+        if(!board.piece(source).possibleMove(target)){
+            throw new ChessException("The chosen piece can't move to target position");
         }
     }
 
