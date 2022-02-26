@@ -6,16 +6,18 @@ import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChessMatch {
 
     private Board board;
 
     private int turn;
     private Color currentPlayer;
-    private boolean check;
-    private boolean checkMate;
-    private ChessPiece enPassantVulnerable;
-    private ChessPiece promoted;
+
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
 
     public ChessMatch(){
         //Creates a bord with 8 rows and 8 columns and calls the initial setup.
@@ -62,11 +64,17 @@ public class ChessMatch {
         return (ChessPiece) capturedPiece;
     }
 
-
+    //tira da origem e bota no destino
     private Piece makeMove(Position source, Position target) {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
+
+        if(capturedPiece != null){
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
+
         return capturedPiece;
     }
     //Validate the source position
@@ -101,6 +109,7 @@ public class ChessMatch {
 
     private void placeNewPiece(char colomn, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPosition(colomn, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     private void initialSetup(){
